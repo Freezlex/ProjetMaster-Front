@@ -1,10 +1,11 @@
 <template>
   <div class="search-view">
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <span class="navbar-brand" href="#">Recherche</span>
-          <input class="form-control mr-xl-3" type="text" placeholder="Recherche" v-model="searchField" />
-          <input class="form-control mr-xl-3" type="number" placeholder="Date début" v-model="startDate" />
-          <input class="form-control mr-xl-3" type="number" placeholder="Date fin" v-model="endDate" />
+          <input class="form-control mr-xl-3" type="text" placeholder="Recherche" @keyup="createRequest()" v-model="searchField" />
+          <input class="form-control mr-xl-3" type="number" placeholder="Date début" @keyup="createRequest()" v-model="startDate" />
+          <input class="form-control mr-xl-3" type="number" placeholder="Date fin" @keyup="createRequest()" v-model="endDate" />
           <button class="btn btn-primary" v-on:click="createRequest()">Rechercher</button>
 
         </nav>
@@ -12,7 +13,7 @@
 
         <li class="list-group-item" v-for="value in result" v-bind:key="value.id">
           <span class="author"> {{ value.sujet }}</span>
-          <button @click="redirect()">REDIRECTION</button>
+          <button @click="redirect" :doc="value.id" ref="el">REDIRECTION</button>
         </li>
   </div>
 </template>
@@ -48,7 +49,8 @@ export default {
       })
     },
     async redirect(){
-      await this.$router.push('about')
+      if(!this.$refs.el)return;
+      await this.$router.push({path: 'result', query: { doc: await this.$refs.el.getAttribute("doc")}})
     }
   }
 }
