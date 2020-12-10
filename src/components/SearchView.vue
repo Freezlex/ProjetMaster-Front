@@ -11,7 +11,7 @@
 
               <ul class="list-group-item" v-for="value in result" v-bind:key="value.id">
                   <li class="sujet">{{ value.sujet }}</li>
-                  <li class="author"> <strong>Date</strong> : {{ value.date }}</li>
+                  <li class="author"> <strong>Date</strong> : {{ value.date + (value['date_max'] ? ` - ${value['date_max']}`: '') }}</li>
                   <li class="author"> <strong>Auteur</strong> : {{ value.auteur }}</li>
                 <button id="voir" class="btn btn-black" :doc="value.id" @click="redirect($event)">Voir plus</button>
 
