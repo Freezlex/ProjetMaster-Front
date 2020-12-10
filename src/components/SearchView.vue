@@ -13,7 +13,7 @@
                   <li class="sujet">{{ value.sujet }}</li>
                   <li class="author"> <strong>Date</strong> : {{ value.date }}</li>
                   <li class="author"> <strong>Auteur</strong> : {{ value.auteur }}</li>
-                <button id="voir" class="btn btn-black" :doc="value.id" ref="el" @click="redirect()">Voir plus</button>
+                <button id="voir" class="btn btn-black" :doc="value.id" @click="redirect($event)">Voir plus</button>
 
               </ul>
              </div>
@@ -53,9 +53,9 @@ export default {
         return this.result = response.data.res
       })
     },
-    async redirect(){
-      if(!this.$refs.el)return;
-      await this.$router.push({path: 'result', query: { doc: await this.$refs.el.getAttribute("doc")}})
+    async redirect(item){
+      if(!item.target)return;
+      await this.$router.push({path: 'result', query: { doc: await item.target.getAttribute("doc")}})
     }
   }
 }
