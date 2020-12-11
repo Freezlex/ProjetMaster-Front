@@ -1,6 +1,7 @@
 <template>
   <div class="sidenav">
     <h1 class="login-main-text">Projet Master <br>Histoire</h1>
+    <button class="btn btn-white" @click="create">Créer</button>
   </div>
 
 </template>
@@ -11,6 +12,11 @@ export default {
   name: "SideNav",
   props:{
     msg: String
+  },
+  methods: {
+    async create(){
+      await this.$router.push({path: 'create'})
+    }
   }
 }
 </script>
@@ -19,7 +25,10 @@ export default {
 
   .sidenav {
     height: 100%;
-    background-color: #000;
+    background-image: url("https://www.bibliotheque-humaniste.fr/fileadmin/_processed_/4/f/csm_Rhenana_61d8d6082c.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background-color: #000;*/
     overflow-x: hidden;
     padding-top: 20px;
   }
@@ -57,5 +66,8 @@ export default {
     }
   }
 
-
+  .btn-white{
+    background-color: #FFFFFF !important;
+    color: #000000;
+  }
 </style>

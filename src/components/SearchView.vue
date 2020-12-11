@@ -2,17 +2,27 @@
     <div class="main">
         <div class="form-text">
             <div class="search-view">
-              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark" v-if="!filtered">
                 <span class="navbar-brand" href="#">Recherche</span>
                 <input class="form-control mr-xl-3" type="text" placeholder="Recherche" @keyup="createRequest()" v-model="searchField" />
                 <input class="form-control mr-xl-3" type="number" placeholder="Date début" @keyup="createRequest()" v-model="startDate" />
                 <input class="form-control mr-xl-3" type="number" placeholder="Date fin" @keyup="createRequest()" v-model="endDate" />
+              </nav>
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark" v-else>
+                <span class="navbar-brand" href="#">Recherche avancée</span>
+                <input class="form-control mr-xl-3" type="text" placeholder="Recherche" @keyup="createRequest()" v-model="searchField" />
+                <input class="form-control mr-xl-3" type="text" placeholder="Recherche" @keyup="createRequest()" v-model="searchField" />
+                <input class="form-control mr-xl-3" type="text" placeholder="Recherche" @keyup="createRequest()" v-model="searchField" />
+                <input class="form-control mr-xl-3" type="number" placeholder="Date début" @keyup="createRequest()" v-model="startDate" />
+                <input class="form-control mr-xl-3" type="number" placeholder="Date fin" @keyup="createRequest()" v-model="endDate" />
+                <button id="voir" class="btn btn-black" :doc="value.id" @click="advancedRequest($event)">Voir plus</button>
               </nav>
 
               <ul class="list-group-item" v-for="value in result" v-bind:key="value.id">
                   <li class="sujet">{{ value.sujet }}</li>
                   <li class="author"> <strong>Date</strong> : {{ value.date + (value['date_max'] ? ` - ${value['date_max']}`: '') }}</li>
                   <li class="author"> <strong>Auteur</strong> : {{ value.auteur }}</li>
+                  <img v-if="value.img" :src="value.img" :alt="value.auteur">
                 <button id="voir" class="btn btn-black" :doc="value.id" @click="redirect($event)">Voir plus</button>
 
               </ul>
@@ -30,6 +40,7 @@ export default {
   name: "SearchView",
   data(){
     return{
+      filtered: false,
       searchField: "",
       result: null,
       startDate: null,
@@ -49,6 +60,7 @@ export default {
         "date-min": this.startDate ? await parseInt(this.startDate, 10) : null,
         "date-max": this.endDate ? await parseInt(this.endDate, 10) : null
       }).then(response => {
+        console.log(response.data)
         if(!response.data.res)return this.api = {};
         return this.result = response.data.res
       })
