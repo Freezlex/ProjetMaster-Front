@@ -21,8 +21,6 @@ export default {
 }
 </script>
 <style type="text/css">
-
-
   .sidenav {
     height: 100%;
     background-image: url("https://www.bibliotheque-humaniste.fr/fileadmin/_processed_/4/f/csm_Rhenana_61d8d6082c.jpg");

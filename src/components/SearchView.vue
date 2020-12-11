@@ -23,7 +23,7 @@
                   <li class="author"> <strong>Date</strong> : {{ value.date + (value['date_max'] ? ` - ${value['date_max']}`: '') }}</li>
                   <li class="author"> <strong>Auteur</strong> : {{ value.auteur }}</li>
                   <img v-if="value.img" :src="value.img" :alt="value.auteur">
-                <button id="voir" class="btn btn-black" :doc="value.id" @click="redirect($event)">Voir plus</button>
+                <button id="voir" class="btn btn-primary" :doc="value.id" @click="redirect($event)">Voir plus</button>
 
               </ul>
              </div>
@@ -123,9 +123,6 @@ ul{
         padding: 0px 10px;
     }
 
-    @media screen and (max-height: 450px) {
-
-    }
 
     @media screen and (max-width: 450px) {
 
